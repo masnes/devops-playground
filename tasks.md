@@ -10,6 +10,9 @@ Attain DevOps competence
 ** Save data to EBS
 ** Should have teardown + setup fully automated
 
+# 1.a
+* Log server needs a certificate
+** Automate setup of local ca authority with step: https://github.com/smallstep/certificates
 
 
 
