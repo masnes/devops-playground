@@ -23,17 +23,18 @@ esac
 
 set -x
 ( cd "$script_dir/"  # make sure we are in the tf directory for this part
-terraform validate # config better be valid or abort asap
+terraform validate   # also, config better be valid or abort asap
+terraform fmt
+git add *.tf
 if [ -f ./terraform.tfstate ]; then
   git add terraform.tfstate
 fi
-git add *.tf
 git commit -m "pre terraform $cmd" || true
 git pull --rebase
 set +e
 terraform "$cmd" -auto-approve
 set -e
-git add terraform.tfstate *.tf
+git add *.tf terraform.tfstate
 git commit -m "terraform $cmd run" || true
 git pull --rebase
 git push
