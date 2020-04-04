@@ -37,7 +37,7 @@ resource "aws_security_group" "base" {
 }
 
 resource "aws_instance" "log_server" {
-  ami             = "ami-087c2c50437d0b80d"  # RHEL 8 x86
+  ami             = "ami-087c2c50437d0b80d" # RHEL 8 x86
   instance_type   = "t3a.micro"
   key_name        = aws_key_pair.t480_laptop.key_name
   security_groups = [aws_security_group.base.name]
