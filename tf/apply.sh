@@ -29,9 +29,9 @@ fi
 git add *.tf
 git commit -m "pre terraform $cmd" || true
 git pull --rebase
-( set +e
+set +e
 terraform "$cmd" -auto-approve
-)
+set -e
 git add terraform.tfstate *.tf
 git commit -m "terraform $cmd run" || true
 git pull --rebase
