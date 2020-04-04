@@ -1,5 +1,5 @@
 resource "aws_instance" "ca_server" {
-  ami             = "ami-087c2c50437d0b80d" # RHEL 8 x86
+  ami             = "ami-00f4b9641119301bf" # Debian 10 x86
   instance_type   = "t3a.nano"
   key_name        = aws_key_pair.t480_laptop.key_name
   security_groups = [aws_security_group.base.name]
