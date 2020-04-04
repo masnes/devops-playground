@@ -23,6 +23,7 @@ esac
 
 set -x
 ( cd "$script_dir/"  # make sure we are in the tf directory for this part
+terraform validate # config better be valid or abort asap
 if [ -f ./terraform.tfstate ]; then
   git add terraform.tfstate
 fi
