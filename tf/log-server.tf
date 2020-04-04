@@ -69,5 +69,5 @@ resource "aws_instance" "log_server" {
 
 
 output "log_server" {
-  value = aws_instance.linux_academy_playground_server.public_dns
+  value = aws_instance.log_server.public_dns
 }
