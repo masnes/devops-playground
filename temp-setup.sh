@@ -15,4 +15,4 @@ at "now + $ADDITIONAL_TIME" <<EOF
 EOF
 )
 
-#"$script_dir/tf/apply.sh" apply
+"$script_dir/tf/apply.sh" apply
