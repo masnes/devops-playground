@@ -23,6 +23,12 @@ resource "aws_instance" "log_server" {
   }
 }
 
+# Preparing to setup security
+#resource "aws_eip" "log_server_ip" {
+#  instance = aws_instance.log_server.id
+#}
+
+#resource "aws_route53_record" "
 
 output "log_server" {
   value = aws_instance.log_server.public_dns
