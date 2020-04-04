@@ -8,12 +8,6 @@ resource "aws_instance" "log_server" {
     encrypted = true
   }
 
-  ebs_block_device {
-    device_name = "/dev/xvdb"
-    volume_size = 30
-    encrypted   = true
-  }
-
   connection {
     type        = "ssh"
     user        = "ec2-user"
