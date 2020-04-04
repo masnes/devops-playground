@@ -1,8 +1,3 @@
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-}
-
 resource "aws_security_group" "base" {
   name        = "base"
   description = "all access needs from my apex apartment"

@@ -1,8 +1,3 @@
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-}
-
 resource "aws_key_pair" "old_laptop_default" {
   key_name   = "old-laptop-default-copy"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEnjGTmDBk5NmUbZwrr5Ymn+iSHozHWYucBvnew83toQYxC3cNN4qXqI/P4Owa6uYBQSmtUDdg+Ar8NyaW5rH74RuuEeijYEg3cklKv8kKwUQYOyh2+fe9FFB1IVeD5U4rnWFKYt6t2N2BbiqxJfqDMPtrjBEnl9dfBllMQGfpxReAEDRYi22jYgDSg0wBwKnBNYbR8zA42JFnduqYDij6AQVZbC9zrsfkl+Vs4xxuHutmzMARwmjSi45WqE1wD4TxuLWyblzW9CKMz6wcUbbAzHL5dWOUEg3J9x31uU67/mAXW2b1C27FTaOIgKrkVZNjlM9PEpfAPiDkHEm0wslH masnes@arch"

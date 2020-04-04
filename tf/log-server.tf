@@ -1,8 +1,3 @@
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-}
-
 resource "aws_instance" "log_server" {
   ami             = "ami-087c2c50437d0b80d" # RHEL 8 x86
   instance_type   = "t3a.micro"
