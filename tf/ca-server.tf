@@ -10,7 +10,7 @@ resource "aws_instance" "ca_server" {
 
   connection {
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "admin"
     host        = self.public_ip
     private_key = file("/home/masnes/.ssh/id_rsa")
   }
@@ -18,7 +18,7 @@ resource "aws_instance" "ca_server" {
   provisioner "remote-exec" {
     inline = [
       "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-      "sudo yum -y install vim bash-completion tmux"
+      "sudo apt install vim bash-completion tmux"
     ]
   }
 }
