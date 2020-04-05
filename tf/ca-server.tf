@@ -18,7 +18,7 @@ resource "aws_instance" "ca_server" {
   provisioner "remote-exec" {
     inline = [
       "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-      "sudo apt install vim bash-completion tmux"
+      "sudo apt install vim bash-completion"
     ]
   }
 }
