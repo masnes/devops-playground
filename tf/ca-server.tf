@@ -24,5 +24,5 @@ resource "aws_instance" "ca_server" {
 }
 
 output "ca_server" {
-  value = aws_instance.log_server.public_dns
+  value = aws_instance.ca_server.public_dns
 }
