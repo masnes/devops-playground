@@ -18,12 +18,6 @@ resource "aws_instance" "ca_server" {
   provisioner "remote-exec" {
     inline = [
       "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-      "sudo apt update",
-      "wget https://github.com/smallstep/certificates/releases/download/v1.13.3/step-certificates_0.13.3_amd64.deb",
-      "sudo dpkg -i step-certificates_0.13.3_amd64.deb",
-      "wget https://github.com/smallstep/cli/releases/download/v0.13.3/step-cli_0.13.3_amd64.deb",
-      "sudo dpkg -i step-cli_0.13.3_amd64.deb",
-      "sudo apt install golang"
     ]
   }
 }
