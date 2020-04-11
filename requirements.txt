@@ -1,0 +1,3 @@
+terraform 12.x
+ansible 2.9.x
+terraform-inventory 0.9
