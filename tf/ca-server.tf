@@ -36,7 +36,7 @@ resource "aws_route53_record" "ca_server" {
   name    = "ca-server.michaelasnes.com"
   type    = "A"
   ttl     = 300
-  records = []
+  records = [aws_eip.ca_ip.public_ip]
 }
 
 output "ca_server" {
