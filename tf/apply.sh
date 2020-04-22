@@ -21,6 +21,11 @@ case $1 in
   ;;
 esac
 
+unstashed_changes() {
+  git update-index --refresh
+  git diff-index --quiet HEAD -- && git diff-index --cached --quiet HEAD
+}
+
 set -x
 ( cd "$script_dir/"  # make sure we are in the tf directory for this part
 terraform validate   # also, config better be valid or abort asap
@@ -30,9 +35,13 @@ if [ -f ./terraform.tfstate ]; then
   git add terraform.tfstate
 fi
 git commit -m "pre terraform $cmd" || true
-git stash push
-git pull --rebase
-git stash pop
+if unstashed_changes ; then
+  git stash push
+  git pull --rebase
+  git stash pop
+else
+  git pull --rebase
+fi
 set +e
 terraform "$cmd" -auto-approve
 set -e
