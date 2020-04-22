@@ -20,7 +20,7 @@ usage() {
 }
 
 case "$1" in
-  [Hh]*|?*)
+  [Hh]*)
     usage
     exit
     ;;
