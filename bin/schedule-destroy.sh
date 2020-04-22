@@ -13,3 +13,6 @@ at "now + $ADDITIONAL_TIME" <<EOF
 "$script_dir/../tf/apply.sh" destroy
 EOF
 )
+
+echo "To view: atq"
+echo "To cancel use atrm against the created at job"
