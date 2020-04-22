@@ -21,9 +21,9 @@ case $1 in
   ;;
 esac
 
-unstashed_changes() {
+no_unstashed_changes() {
   git update-index --refresh
-  git diff-index --quiet HEAD -- && git diff-index --cached --quiet HEAD
+  git diff-index --quiet HEAD --
 }
 
 set -x
@@ -35,12 +35,12 @@ if [ -f ./terraform.tfstate ]; then
   git add terraform.tfstate
 fi
 git commit -m "pre terraform $cmd" || true
-if unstashed_changes ; then
+if no_unstashed_changes ; then
+  git pull --rebase
+else
   git stash push
   git pull --rebase
   git stash pop
-else
-  git pull --rebase
 fi
 set +e
 terraform "$cmd" -auto-approve
