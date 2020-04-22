@@ -30,7 +30,7 @@ if [ -f ./terraform.tfstate ]; then
   git add terraform.tfstate
 fi
 git commit -m "pre terraform $cmd" || true
-git stash
+git stash push
 git pull --rebase
 git stash pop
 set +e
