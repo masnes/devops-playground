@@ -23,12 +23,17 @@ resource "aws_instance" "log_server" {
   }
 }
 
-# Preparing to setup security
-#resource "aws_eip" "log_server_ip" {
-#  instance = aws_instance.log_server.id
-#}
+resource "aws_eip" "log_server_ip" {
+  instance = aws_instance.log_server.id
+}
 
-#resource "aws_route53_record" "
+resource "aws_route53_record" "log_server" {
+  zone_id = var.user_route53_hosted_zone
+  name    = "log-server.michaelasnes.com"
+  type    = "A"
+  ttl     = 300
+  records = [aws_eip.log_server_ip.public_ip]
+}
 
 output "log_server" {
   value = aws_instance.log_server.public_dns
