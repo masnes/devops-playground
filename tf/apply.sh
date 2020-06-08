@@ -47,6 +47,12 @@ terraform "$cmd" -auto-approve
 set -e
 git add *.tf terraform.tfstate
 git commit -m "terraform $cmd run" || true
-git pull --rebase
+if no_unstashed_changes ; then
+  git pull --rebase
+else
+  git stash push
+  git pull --rebase
+  git stash pop
+fi
 git push
 )
