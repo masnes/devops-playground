@@ -30,4 +30,7 @@ esac
 
 "$script_dir"/bin/schedule-destroy.sh "$1"
 "$script_dir/tf/apply.sh" apply
+SLEEP=10
+echo "AWS DNS is quick, but give it $SLEEP seconds to propagate"
+sleep $SLEEP
 "$script_dir/ansible/run-ansible.sh"
