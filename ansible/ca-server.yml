@@ -26,3 +26,19 @@
       apt:
         name: "golang"
         state: present
+    - name: "Init ca server"
+      command:
+        argv:
+          - "/usr/bin/step"
+          - "ca"
+          - "init"
+          - "-name"
+          - "playground"
+          - "-dns"
+          - "ca-server.micahelasnes.io,log-server.michaelasnes.io"
+          - "-address"
+          - ":443"
+          - "-provisioner"
+          - "playground-ca-1"
+          - "-password-file"
+          - "TODO"
