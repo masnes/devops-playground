@@ -26,6 +26,11 @@
       apt:
         name: "golang"
         state: present
+    - name: "Copy password file"
+      copy:
+        src: generated-password
+        dest: ~/
+        mode: 0600
     - name: "Init ca server"
       command:
         argv:
@@ -41,4 +46,4 @@
           - "-provisioner"
           - "playground-ca-1"
           - "-password-file"
-          - "TODO"
+          - "~/generated-password"
