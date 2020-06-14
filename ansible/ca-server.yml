@@ -44,11 +44,11 @@
           - "-name"
           - "playground"
           - "-dns"
-          - "ca-server.micahelasnes.io,log-server.michaelasnes.io"
+          - "localhost,ca-server.michaelasnes.com"
           - "-address"
           - ":443"
           - "-provisioner"
           - "playground-ca-1"
           - "-password-file"
-          - "~/generated-password"
+          - ~/generated-password
       when: not step_folder.stat.exists

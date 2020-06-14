@@ -9,4 +9,4 @@ if [[ ! -f "$script_dir"/files/generated-password ]]; then
 fi
 
 export TF_STATE="$script_dir/../tf/"
-ansible-playbook --inventory-file="$script_dir"/terraform-inventory  "$script_dir"/ca-server.yml
+ansible-playbook --inventory-file="$script_dir"/terraform-inventory  "$script_dir"/ca-server.yml "$@"
