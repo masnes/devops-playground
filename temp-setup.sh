@@ -30,7 +30,9 @@ esac
 
 "$script_dir"/bin/schedule-destroy.sh "$1"
 "$script_dir/tf/apply.sh" apply
-SLEEP=10
+# sync instance ips which don't update after eip assignment
+(cd "$script_dir"/tf ; terraform refresh)
+SLEEP=5
 echo "AWS DNS is quick, but give it $SLEEP seconds to propagate"
 sleep $SLEEP
 "$script_dir/ansible/run-ansible.sh"
