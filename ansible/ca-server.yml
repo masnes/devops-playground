@@ -30,7 +30,11 @@
       copy:
         src: generated-password
         dest: ~/
-        mode: 0600
+       mode: 0600
+    - name: "Determine if ca server already initialized"
+      stat:
+        path: ~/.step
+      register: step_folder
     - name: "Init ca server"
       command:
         argv:
@@ -47,3 +51,4 @@
           - "playground-ca-1"
           - "-password-file"
           - "~/generated-password"
+      when: not step_folder.stat.exists
