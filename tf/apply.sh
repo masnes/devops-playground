@@ -44,6 +44,7 @@ else
 fi
 set +e
 terraform "$cmd" -auto-approve
+terraform refresh  # sync instance ips which don't update after eip assignment
 set -e
 git add *.tf terraform.tfstate
 git commit -m "terraform $cmd run" || true
