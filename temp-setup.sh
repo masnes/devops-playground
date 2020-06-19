@@ -33,4 +33,4 @@ esac
 SLEEP=5
 echo "AWS DNS is quick, but give it $SLEEP seconds to propagate"
 sleep $SLEEP
-"$script_dir/ansible/run-ansible.sh" "$script_dir/ca-server.yml"
+"$script_dir/ansible/run-ansible.sh" "all.yml"

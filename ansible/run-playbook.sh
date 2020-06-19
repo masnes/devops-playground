@@ -1,5 +1,6 @@
 #!/bin/bash
 script_dir="$(dirname "$(readlink -f "$0")")"
+cd "$script_dir"
 
 # Pending setup of ansible vault, generate a local password with high
 # entropy for use in a password file
