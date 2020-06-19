@@ -11,7 +11,7 @@ fi
 
 export TF_STATE="$script_dir/../tf/"
 run_playbook() {
-  ansible-playbook --inventory-file="$script_dir/inventory_vars.yml" --inventory-file="$script_dir"/terraform-inventory "$@" --syntax-check
-  ansible-playbook --inventory-file="$script_dir/inventory_vars.yml" --inventory-file="$script_dir"/terraform-inventory "$@"
+  ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@" --syntax-check
+  ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@"
 }
 run_playbook "$@"

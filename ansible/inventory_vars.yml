@@ -1,3 +1,0 @@
-ca_server:
-  vars:
-    ansible_user: admin
