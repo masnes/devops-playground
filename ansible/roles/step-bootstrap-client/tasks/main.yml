@@ -1,0 +1,32 @@
+---
+- name: Warn user if root_ca could not be found
+  debug:
+    msg: |
+      Error. Please first setup step ca, then run the role 'step-determine-fingerprint'.
+      Need the fingerprint from the root ca to setup step on host systems.
+  failed_when: true
+  when: hostvars['ca_server']['root_ca_fingerprint'] is undefined
+
+- name: Download step cli
+  get_url:
+    dest: /tmp/
+    url: "https://github.com/smallstep/cli/releases/download/v0.14.4/step_linux_0.14.4_amd64.tar.gz"
+    mode: 644
+
+- name: Unpack step cli
+  become: true
+  become_user: root
+  unarchive:
+    remote_src: yes
+    src: "/tmp/step_linux_0.14.4_amd64.tar.gz"
+    dest: /opt/
+    owner: root
+    group: root
+    mode: "ag-w"
+
+- name: Add step cli to path
+  alternatives:
+    name: step
+    path: /opt/step_0.14.4/bin/step
+    link: /usr/local/bin/step
+    priority: 50

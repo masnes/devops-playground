@@ -1,0 +1,4 @@
+---
+- name: Determine the step ca server fingerprint
+  command: step certificate fingerprint "{{step_path}}/certs/root_ca.crt"
+  register: root_ca_fingerprint

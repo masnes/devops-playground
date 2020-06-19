@@ -1,6 +1,12 @@
+---
 - hosts: ca_server
-  remote_user: admin
   roles: 
     - ca-server
   tags:
     - ca-server
+- hosts: ca_server
+  roles:
+    - step-determine-fingerprint
+- hosts: all
+  roles:
+    - step-bootstrap-client
