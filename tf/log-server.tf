@@ -15,12 +15,6 @@ resource "aws_instance" "log_server" {
     private_key = file("/home/masnes/.ssh/id_rsa")
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-      "sudo yum -y install vim bash-completion tmux"
-    ]
-  }
 }
 
 resource "aws_eip" "log_server_ip" {

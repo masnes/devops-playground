@@ -14,12 +14,6 @@ resource "aws_instance" "ca_server" {
     host        = self.public_ip
     private_key = file("/home/masnes/.ssh/id_rsa")
   }
-
-  provisioner "remote-exec" {
-    inline = [
-      "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-    ]
-  }
 }
 
 resource "aws_eip" "ca_ip" {

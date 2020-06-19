@@ -15,11 +15,6 @@ resource "aws_instance" "vault_server" {
     private_key = file("/home/masnes/.ssh/id_rsa")
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo '${aws_key_pair.old_laptop_default.public_key}' >> ~/.ssh/authorized_keys",
-    ]
-  }
 }
 
 resource "aws_eip" "vault_ip" {
