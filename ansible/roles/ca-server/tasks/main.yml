@@ -32,7 +32,7 @@
 - name: "Determine if ca server already initialized"
   stat:
     path: "{{step_path}}"
-  register: step_path
+  register: step_dir
 - name: "Init ca server"
   command:
     argv:
@@ -49,4 +49,4 @@
       - "playground-ca-1"
       - "-password-file"
       - ~/generated-password
-  when: not step_path.stat.exists
+  when: not step_dir.stat.exists
