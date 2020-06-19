@@ -13,4 +13,4 @@ run_playbook() {
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@" --syntax-check
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@"
 }
-run_playbook "$script_dir"/ca-server.yml "$@"
+run_playbook "$@"
