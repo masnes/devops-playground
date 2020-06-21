@@ -5,26 +5,24 @@
       Error. Please first setup step ca, then run the role 'step-determine-fingerprint'.
       Need the fingerprint from the root ca to setup step on host systems.
   failed_when: true
-  when: hostvars['ca_server']['root_ca_fingerprint'] is undefined
+  when: hostvars[groups['ca_server'][0]]['root_ca_fingerprint'] is undefined
 
 - name: Download step cli
+  become: true
   get_url:
     dest: /tmp/
     url: "https://github.com/smallstep/cli/releases/download/v0.14.4/step_linux_0.14.4_amd64.tar.gz"
-    mode: 644
+    owner: "{{ansible_user}}"
+    mode: '644'
 
 - name: Unpack step cli
-  become: true
-  become_user: root
   unarchive:
-    remote_src: yes
+    remote_src: true
     src: "/tmp/step_linux_0.14.4_amd64.tar.gz"
     dest: /opt/
-    owner: root
-    group: root
-    mode: "ag-w"
 
 - name: Add step cli to path
+  become: true
   alternatives:
     name: step
     path: /opt/step_0.14.4/bin/step
