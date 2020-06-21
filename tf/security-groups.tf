@@ -16,7 +16,7 @@ resource "aws_security_group" "base" {
       protocol  = "tcp"
       cidr_blocks = [
         for ip in var.allowed_ips :
-        ip + "/32"
+        "${ip}/32"
       ]
     }
   }
