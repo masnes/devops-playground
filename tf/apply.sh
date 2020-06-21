@@ -42,7 +42,7 @@ else
   git pull --rebase
   git stash pop
 fi
-tf_opts="-auto-approve \"-var=allowed_ips=[\"$(curl -4 https://canhazip.com)\"]\""
+tf_opts="-auto-approve -var=allowed_ips=[\"$(curl -4 https://canhazip.com)\"]"
 terraform "$cmd" $tf_opts
 set +e
 terraform refresh  # sync instance ips which don't update after eip assignment
