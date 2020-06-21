@@ -42,7 +42,7 @@
     owner: root
     group: root
 - name: "Copy password file"
-  bcome: true
+  become: true
   copy:
     src: generated-password
     dest: /etc/step-ca/password.txt
