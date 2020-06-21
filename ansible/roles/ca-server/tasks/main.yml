@@ -21,6 +21,18 @@
     name: "golang"
     state: present
 
+# Pre Init config management
+- name: "Create _step_ca user"
+  become: true
+  user:
+    user: _ca_user
+    group: _ca_user
+    password: "!"
+    shell: /sbin/nologin
+    home: /var/lib/step-ca
+    move_home: yes
+    create_home: yes
+    system: yes
 - name: "Ensure /etc/step-ca dir exists"
   become: true
   file:
@@ -35,12 +47,17 @@
     src: generated-password
     dest: /etc/step-ca/password.txt
     mode: '0600'
+    owner: _ca_user
+    group: _ca_user
 
+# Init CA Server
 - name: "Determine if ca server already initialized"
+  become_user: "{{step_user}}"
   stat:
     path: "{{step_path}}"
   register: step_dir
 - name: "Init ca server"
+  become_user: "{{step_user}}"
   command:
     argv:
       - "/usr/bin/step"
