@@ -43,11 +43,17 @@ else
   git stash pop
 fi
 set +e
-terraform "$cmd" -auto-approve
+tf_opts="-auto-approve -var=\"allowed_ips=$(curl -4 https://canhazip.com)\""
+terraform "$cmd" $tf_opts
 terraform refresh  # sync instance ips which don't update after eip assignment
 set -e
 git add *.tf terraform.tfstate
-git commit -m "terraform $cmd run" || true
+git commit -m <<EOF || true
+terraform $cmd run
+
+opts: $tf_opts
+EOF
+
 if no_unstashed_changes ; then
   git pull --rebase
 else
