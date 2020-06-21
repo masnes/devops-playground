@@ -26,7 +26,6 @@
   become: true
   user:
     user: {{step_user}}
-    group: {{step_user}}
     password: "!"
     shell: /sbin/nologin
     home: {{step_home}}
