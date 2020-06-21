@@ -1,9 +1,4 @@
 ---
-- name: "Latest packages"
-  become: true
-  apt:
-    name: "*"
-    state: "latest"
 - name: "Get Smallstep"
   get_url:
     dest: "/home/admin/step-certificates_0.13.3_amd64.deb"
