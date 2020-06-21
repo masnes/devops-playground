@@ -74,3 +74,17 @@
       - "-password-file"
       - "/etc/step-ca/password.txt"
   when: not step_dir.stat.exists
+
+# Enable and run CA Server
+- name: Setup Systemd Unit File for CA Server
+  become: true
+  template:
+    src: step-ca.service.j2
+    dest: /etc/systemd/system/step-ca.service
+
+- name: Enable and Run Step CA Server
+  systemd:
+    name: step-ca.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

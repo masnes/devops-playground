@@ -1,0 +1,22 @@
+[Unit]
+Description=A private certificate authority (X.509 & SSH) & ACME server
+Documentation=https://github.com/smallstep/certificates
+After=network.target
+Before=nss-lookup.target
+Wants=nss-lookup.target
+
+[Service]
+NonBlocking=true
+WorkingDirectory=/var/lib/step-ca
+ExecStart=/usr/sbin/step-ca .step/config/ca.json --password-file=/etc/step-ca/password.txt
+ProtectHome=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+User=_step-ca
+Group=_step-ca
+CacheDirectory=step-ca
+LogsDirectory=step-ca
+RuntimeDirectory=step-ca
+
+[Install]
+WantedBy=multi-user.target
