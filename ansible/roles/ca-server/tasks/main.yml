@@ -22,14 +22,14 @@
     state: present
 
 # Pre Init config management
-- name: "Create _step_ca user"
+- name: "Create {{step_user}} user"
   become: true
   user:
-    user: _ca_user
-    group: _ca_user
+    user: {{step_user}}
+    group: {{step_user}}
     password: "!"
     shell: /sbin/nologin
-    home: /var/lib/step-ca
+    home: {{step_home}}
     move_home: yes
     create_home: yes
     system: yes
@@ -47,8 +47,8 @@
     src: generated-password
     dest: /etc/step-ca/password.txt
     mode: '0600'
-    owner: _ca_user
-    group: _ca_user
+    owner: {{step_user}}
+    group: {{step_user}}
 
 # Init CA Server
 - name: "Determine if ca server already initialized"

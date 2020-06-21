@@ -7,13 +7,13 @@ Wants=nss-lookup.target
 
 [Service]
 NonBlocking=true
-WorkingDirectory=/var/lib/step-ca
+WorkingDirectory={{step_home}}
 ExecStart=/usr/sbin/step-ca .step/config/ca.json --password-file=/etc/step-ca/password.txt
 ProtectHome=yes
 ProtectControlGroups=yes
 ProtectKernelModules=yes
-User=_step-ca
-Group=_step-ca
+User={{step_user}}
+Group={{step_user}}
 CacheDirectory=step-ca
 LogsDirectory=step-ca
 RuntimeDirectory=step-ca

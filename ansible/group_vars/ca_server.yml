@@ -1,4 +1,6 @@
 ---
 ansible_user: admin
-step_path: /var/lib/step-ca/.step
+step_user: "_step-ca"
+step_home: /var/lib/step-ca
+step_path: {{step_home}}/.step
 
