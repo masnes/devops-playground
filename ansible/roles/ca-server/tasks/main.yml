@@ -1,16 +1,17 @@
 ---
+# Install binaries
 - name: "Get Smallstep"
   get_url:
-    dest: "/home/admin/step-certificates_0.13.3_amd64.deb"
+    dest: "~{{ansible_user}}/step-certificates_0.13.3_amd64.deb"
     url: "https://github.com/smallstep/certificates/releases/download/v0.13.3/step-certificates_0.13.3_amd64.deb"
 - name: "Get Smallstep CLI"
   get_url:
-    dest: "/home/admin/step-cli_0.13.3_amd64.deb" 
+    dest: "~{{ansible_user}}/step-cli_0.13.3_amd64.deb"
     url: "https://github.com/smallstep/cli/releases/download/v0.13.3/step-cli_0.13.3_amd64.deb"
 - name: Install smallstep and smallstep cli
   become: true
   apt:
-    deb:  "/home/admin/{{item}}"
+    deb:  "~{{ansible_user}}/{{item}}"
   with_items:
     - "step-certificates_0.13.3_amd64.deb"
     - "step-cli_0.13.3_amd64.deb"
@@ -19,11 +20,22 @@
   apt:
     name: "golang"
     state: present
+
+- name: "Ensure /etc/step-ca dir exists"
+  become: true
+  file:
+    path: "/etc/step-ca"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
 - name: "Copy password file"
+  bcome: true
   copy:
     src: generated-password
-    dest: ~/
-    mode: 0600
+    dest: /etc/step-ca/password.txt
+    mode: '0600'
+
 - name: "Determine if ca server already initialized"
   stat:
     path: "{{step_path}}"
@@ -43,5 +55,5 @@
       - "-provisioner"
       - "playground-ca-1"
       - "-password-file"
-      - ~/generated-password
+      - "/etc/step-ca/password.txt"
   when: not step_dir.stat.exists
