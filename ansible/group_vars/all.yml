@@ -1,0 +1,2 @@
+ansible_user: ec2-user
+ca_server_url: ca-server.michaelasnes.com
