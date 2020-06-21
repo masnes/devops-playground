@@ -1,6 +1,12 @@
+variable "allowed_ips" {
+  type        = list(string)
+  description = "A list of one or more ip addresses (not cidr's) that you will be accessing from."
+  default     = ["73.78.216.54"]
+}
+
 resource "aws_security_group" "base" {
   name        = "base"
-  description = "all access needs from my apex apartment"
+  description = "all access needs from provided public ips"
 
   dynamic "ingress" {
     for_each = [22, 8000, 8089]
@@ -9,8 +15,8 @@ resource "aws_security_group" "base" {
       to_port   = ingress.value
       protocol  = "tcp"
       cidr_blocks = [
-        "73.78.216.54/32",
-        "73.229.170.110/32"
+        for ip in var.allowed_ips :
+        ip + "/32"
       ]
     }
   }
