@@ -25,10 +25,10 @@
 - name: "Create {{step_user}} user"
   become: true
   user:
-    user: {{step_user}}
-    password: "!"
+    user: "{{step_user}}"
+    password: ""
     shell: /sbin/nologin
-    home: {{step_home}}
+    home: "{{step_home}}"
     move_home: yes
     create_home: yes
     system: yes
@@ -46,8 +46,8 @@
     src: generated-password
     dest: /etc/step-ca/password.txt
     mode: '0600'
-    owner: {{step_user}}
-    group: {{step_user}}
+    owner: "{{step_user}}"
+    group: "{{step_user}}"
 
 # Init CA Server
 - name: "Determine if ca server already initialized"

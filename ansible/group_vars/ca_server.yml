@@ -2,5 +2,5 @@
 ansible_user: admin
 step_user: "_step-ca"
 step_home: /var/lib/step-ca
-step_path: {{step_home}}/.step
+step_path: "{{step_home}}/.step"
 
