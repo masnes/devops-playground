@@ -26,6 +26,25 @@ no_unstashed_changes() {
   git diff-index --quiet HEAD --
 }
 
+pull_if_behind() {
+  git remote update
+  UPSTREAM='@{u}'
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  BASE=$(git merge-base @ "$UPSTREAM")
+
+  if [ $LOCAL = $REMOTE ]; then
+    echo "Up-to-date"
+  elif [ $LOCAL = $BASE ]; then
+    git pull --rebase
+  elif [ $REMOTE = $BASE ]; then
+    echo "Need to push"
+  else
+    git pull --rebase
+    #echo "Diverged" && exit 1
+  fi
+}
+
 set -x
 ( cd "$script_dir/"  # make sure we are in the tf directory for this part
 terraform validate   # also, config better be valid or abort asap
@@ -36,10 +55,10 @@ if [ -f ./terraform.tfstate ]; then
 fi
 git commit -m "pre terraform $cmd" || true
 if no_unstashed_changes ; then
-  git pull --rebase
+  pull_if_behind
 else
   git stash push
-  git pull --rebase || git stash pop && echo 'failed to git pull' && exit 1
+  pull_if_behind || git stash pop && echo 'failed to pull' && exit 1
   git stash pop
 fi
 tf_opts="-auto-approve -var=allowed_ips=[\"$(curl -4 https://canhazip.com)\"]"
@@ -58,7 +77,7 @@ if no_unstashed_changes ; then
   git pull --rebase
 else
   git stash push
-  git pull --rebase || git stash pop && echo 'failed to git pull' && exit 1
+  pull_if_behind || git stash pop && echo 'failed to git pull' && exit 1
   git stash pop
 fi
 git push
