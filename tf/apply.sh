@@ -67,12 +67,7 @@ set +e
 terraform refresh  # sync instance ips which don't update after eip assignment
 set -e
 git add *.tf terraform.tfstate
-git commit -m <<EOF || true
-terraform $cmd run
-
-opts: $tf_opts
-EOF
-
+git commit -m "terraform $cmd run" -m "opts: $tf_opts" || true
 if no_unstashed_changes ; then
   git pull --rebase
 else
