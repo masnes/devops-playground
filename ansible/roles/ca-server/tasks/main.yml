@@ -55,6 +55,13 @@
   apt:
     name: acl
     state: present
+# Alternate option to force a reset
+- name: "Clear ca server .step"
+  become: true
+  file:
+    path: "{{step_path}}"
+    state: absent
+  when: reset_step_ca is defined
 - name: "Determine if ca server already initialized"
   become: true
   stat:
@@ -65,13 +72,13 @@
   become_user: "{{step_user}}"
   command:
     argv:
-      - "/usr/bin/step"
+      - "step"
       - "ca"
       - "init"
       - "-name"
       - "playground"
       - "-dns"
-      - "localhost,ca-server.michaelasnes.com"
+      - "localhost,{{ca_server_url}}"
       - "-address"
       - ":443"
       - "-provisioner"

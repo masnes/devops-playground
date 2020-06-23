@@ -30,11 +30,19 @@
     link: /usr/local/bin/step
     priority: 50
 
+- name: wipe .step dir if exists
+  file:
+    path: "~{{ansible_user}}/.step"
+    state: absent
 - name: init step cli
-  command: "step ca bootstrap --fingerprint {{hostvars[groups['ca_server'][0]]['root_ca_fingerprint']}} --ca-url {{ca_server_url}}"
+  command: "step ca bootstrap --fingerprint {{hostvars[groups['ca_server'][0]]['root_ca_fingerprint']['stdout']}} --ca-url {{ca_server_url}}:{{ca_server_port}}"
 
 - name: check step cli health
-  command: step ca health
+  shell:
+    cmd: step ca health
+  environment:
+    STEPDEBUG: "1"
+
   register: ca_health
 
 - name: assert that step cli is in good health

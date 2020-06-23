@@ -3,4 +3,5 @@
   become: true
   become_user: "{{step_user}}"
   command: step certificate fingerprint "{{step_path}}/certs/root_ca.crt"
+  changed_when: false
   register: root_ca_fingerprint
