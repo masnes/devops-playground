@@ -34,13 +34,17 @@ pull_if_behind() {
   BASE=$(git merge-base @ "$UPSTREAM")
 
   if [ $LOCAL = $REMOTE ]; then
-    echo "Up-to-date" && return 0
+    echo "Up-to-date"
+    return 0
   elif [ $LOCAL = $BASE ]; then
-    git pull --rebase && return 0
+    git pull --rebase
+    return 0
   elif [ $REMOTE = $BASE ]; then
-    echo "Need to push" && return 0
+    echo "Need to push"
+    return 0
   else
-    git pull --rebase && return 0
+    git pull --rebase
+    return 0
     #echo "Diverged" && exit 1
   fi
 }
