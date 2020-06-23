@@ -39,7 +39,9 @@ resource "aws_security_group" "intraconnected" {
       from_port       = ingress.value
       to_port         = ingress.value
       protocol        = "tcp"
-      security_groups = [aws_security_group.base.id]
+      security_groups = [
+aws_security_group.base.id
+]
     }
   }
 }

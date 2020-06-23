@@ -24,11 +24,11 @@ resource "aws_eip" "ca_ip" {
 }
 
 resource "aws_route53_record" "ca_server" {
-  zone_id = var.user_route53_hosted_zone
-  name    = "ca-server.michaelasnes.com"
+  zone_id = aws_route53_zone.private.zone_id
+  name    = "ca-server.devops-playground.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.ca_ip.public_ip]
+  records = [aws_eip.ca_ip.private_ip]
 }
 
 output "ca_server" {
