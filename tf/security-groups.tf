@@ -28,3 +28,18 @@ resource "aws_security_group" "base" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "intraconnected" {
+  name        = "intraconnected"
+  description = "allow things to talk to each other"
+
+  dynamic "ingress" {
+    for_each = [443]
+    content {
+      from_port       = ingress.value
+      to_port         = ingress.value
+      protocol        = "tcp"
+      security_groups = [aws_security_group.base.id]
+    }
+  }
+}
