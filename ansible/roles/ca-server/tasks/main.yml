@@ -50,13 +50,20 @@
     group: "{{step_user}}"
 
 # Init CA Server
+- name: "Install acl dependency to allow become switch"
+  become: true
+  apt:
+    name: acl
+    state: present
 - name: "Determine if ca server already initialized"
-  become_user: "{{step_user}}"
+  become: true
   stat:
     path: "{{step_path}}"
   register: step_dir
 - name: "Init ca server"
+  become: true
   become_user: "{{step_user}}"
+  become_flags: "-s /bin/sh"
   command:
     argv:
       - "/usr/bin/step"
@@ -82,6 +89,7 @@
     dest: /etc/systemd/system/step-ca.service
 
 - name: Enable and Run Step CA Server
+  become: true
   systemd:
     name: step-ca.service
     state: restarted
