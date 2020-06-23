@@ -16,6 +16,7 @@
     mode: '644'
 
 - name: Unpack step cli
+  become: true
   unarchive:
     remote_src: true
     src: "/tmp/step_linux_0.14.4_amd64.tar.gz"

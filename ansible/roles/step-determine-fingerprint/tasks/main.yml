@@ -1,4 +1,6 @@
 ---
 - name: Determine the step ca server fingerprint
+  become: true
+  become_user: "{{step_user}}"
   command: step certificate fingerprint "{{step_path}}/certs/root_ca.crt"
   register: root_ca_fingerprint
