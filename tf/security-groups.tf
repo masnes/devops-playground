@@ -36,12 +36,12 @@ resource "aws_security_group" "intraconnected" {
   dynamic "ingress" {
     for_each = [443]
     content {
-      from_port       = ingress.value
-      to_port         = ingress.value
-      protocol        = "tcp"
+      from_port = ingress.value
+      to_port   = ingress.value
+      protocol  = "tcp"
       security_groups = [
-aws_security_group.base.id
-]
+        aws_security_group.base.id
+      ]
     }
   }
 }

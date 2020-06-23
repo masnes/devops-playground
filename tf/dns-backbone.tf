@@ -1,5 +1,5 @@
 variable "user_default_vpc" {
-  type = string
+  type    = string
   default = "vpc-ef9d928a"
 }
 
