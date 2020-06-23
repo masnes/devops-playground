@@ -26,7 +26,7 @@
   become: true
   user:
     user: "{{step_user}}"
-    password: ""
+    password: "{{ lookup('password', 'files/generated-password') | password_hash('sha512', ca_pass_salt) }}"
     shell: /sbin/nologin
     home: "{{step_home}}"
     move_home: yes

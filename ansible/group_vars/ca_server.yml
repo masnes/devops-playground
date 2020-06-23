@@ -3,4 +3,5 @@ ansible_user: admin
 step_user: "_step-ca"
 step_home: /var/lib/step-ca
 step_path: "{{step_home}}/.step"
+ca_pass_salt: "AXNksy737x82l"
 
