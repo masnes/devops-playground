@@ -62,7 +62,7 @@ if no_unstashed_changes ; then
   pull_if_behind
 else
   git stash push
-  pull_if_behind || git stash pop && echo 'failed to pull' && exit 1
+  pull_if_behind || { git stash pop && echo 'failed to pull' && exit 1; }
   git stash pop
 fi
 tf_opts="-auto-approve -var=allowed_ips=[\"$(curl -4 https://canhazip.com)\"]"
@@ -76,7 +76,7 @@ if no_unstashed_changes ; then
   git pull --rebase
 else
   git stash push
-  pull_if_behind || git stash pop && echo 'failed to git pull' && exit 1
+  pull_if_behind || { git stash pop && echo 'failed to git pull' && exit 1; }
   git stash pop
 fi
 git push
