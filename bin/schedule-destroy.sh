@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 script_dir="$(dirname "$(readlink -f "$0")")"
 
