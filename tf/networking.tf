@@ -26,7 +26,7 @@ resource "aws_nat_gateway" "public_nat" {
 }
 
 resource "aws_route_table" "public_private_table" {
-  vpc_id = aws_vpc.devops_playground
+  vpc_id = aws_vpc.devops_playground.id
 
   # default route for vpc cidr to local is implicitly created
 
