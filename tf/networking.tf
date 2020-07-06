@@ -13,7 +13,7 @@ resource "aws_subnet" "private" {
 resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.devops_playground.id
   cidr_block        = "172.16.128.0/24" # ends at 172.16.128.255
-  availability_zone = "us-east-2"
+  availability_zone = "us-west-2b"
 }
 
 resource "aws_eip" "public_nat_ip" {
