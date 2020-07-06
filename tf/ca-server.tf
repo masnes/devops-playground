@@ -10,13 +10,6 @@ resource "aws_instance" "ca_server" {
   root_block_device {
     encrypted = true
   }
-
-  connection {
-    type        = "ssh"
-    user        = "admin"
-    host        = self.public_ip
-    private_key = file("/home/masnes/.ssh/id_rsa")
-  }
 }
 
 resource "aws_eip" "ca_ip" {
