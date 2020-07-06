@@ -67,9 +67,7 @@ else
 fi
 tf_opts="-auto-approve -var=allowed_ips=[\"$(curl -4 https://canhazip.com)\"]"
 terraform "$cmd" $tf_opts || true
-set +e
-terraform refresh  # sync instance ips which don't update after eip assignment
-set -e
+terraform refresh  || true  # sync instance ips which don't update after eip assignment
 git add *.tf terraform.tfstate
 git commit -m "terraform $cmd run" -m "opts: $tf_opts" || true
 if no_unstashed_changes ; then
