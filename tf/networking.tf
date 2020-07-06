@@ -5,7 +5,7 @@ resource "aws_vpc" "devops_playground" {
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.devops_playground.id
   cidr_block        = "172.16.0.0/17" # ends at 172.16.127.255
-  availability_zone = "us-east-2"
+  availability_zone = "us-west-2b"
 
   map_public_ip_on_launch = false # It's the default, but make explicit here
 }
