@@ -2,9 +2,11 @@ resource "aws_instance" "ca_server" {
   ami           = "ami-00f4b9641119301bf" # Debian 10 x86
   instance_type = "t3a.nano"
   key_name      = aws_key_pair.t480_laptop.key_name
-  security_groups = [
-    aws_security_group.base.name,
-    aws_security_group.intraconnected.name
+
+  subnet_id = aws_subnet.private.id
+  vpc_security_group_ids = [
+    aws_security_group.base.id,
+    aws_security_group.intraconnected.id
   ]
 
   root_block_device {

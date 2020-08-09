@@ -8,6 +8,8 @@ resource "aws_security_group" "base" {
   name        = "base"
   description = "all access needs from provided public ips"
 
+  vpc_id = aws_vpc.devops_playground.id
+
   dynamic "ingress" {
     for_each = [22, 8000, 8089]
     content {
@@ -32,6 +34,8 @@ resource "aws_security_group" "base" {
 resource "aws_security_group" "intraconnected" {
   name        = "intraconnected"
   description = "allow things to talk to each other"
+
+  vpc_id = aws_vpc.devops_playground.id
 
   dynamic "ingress" {
     for_each = [443]

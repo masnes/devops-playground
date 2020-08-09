@@ -2,9 +2,11 @@ resource "aws_instance" "log_server" {
   ami           = "ami-087c2c50437d0b80d" # RHEL 8 x86
   instance_type = "t3a.micro"
   key_name      = aws_key_pair.t480_laptop.key_name
-  security_groups = [
-    aws_security_group.base.name,
-    aws_security_group.intraconnected.name
+
+  subnet_id = aws_subnet.private.id
+  vpc_security_group_ids = [
+    aws_security_group.base.id,
+    aws_security_group.intraconnected.id
   ]
 
   root_block_device {
