@@ -20,9 +20,17 @@ resource "aws_eip" "public_nat_ip" {
   vpc = true
 }
 
+resource "aws_internet_gateway" "playground_gateway" {
+  vpc_id = aws_vpc.devops_playground.id
+}
+
 resource "aws_nat_gateway" "public_nat" {
-  subnet_id     = aws_subnet.public.id
   allocation_id = aws_eip.public_nat_ip.id
+  subnet_id     = aws_subnet.public.id
+
+  depends_on = [
+    aws_internet_gateway.playground_gateway
+  ]
 }
 
 resource "aws_route_table" "public_private_table" {
