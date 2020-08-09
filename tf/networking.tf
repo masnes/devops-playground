@@ -8,12 +8,20 @@ resource "aws_subnet" "private" {
   availability_zone = "us-west-2b"
 
   map_public_ip_on_launch = false # It's the default, but make explicit here
+
+  tags {
+    Name = "private"
+  }
 }
 
 resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.devops_playground.id
   cidr_block        = "172.16.128.0/24" # ends at 172.16.128.255
   availability_zone = "us-west-2b"
+
+  tags {
+    Name = "public"
+  }
 }
 
 resource "aws_eip" "public_nat_ip" {
@@ -22,6 +30,10 @@ resource "aws_eip" "public_nat_ip" {
 
 resource "aws_internet_gateway" "playground_gateway" {
   vpc_id = aws_vpc.devops_playground.id
+
+  tags {
+    Name = "playground gateway"
+  }
 }
 
 resource "aws_nat_gateway" "public_nat" {
@@ -31,6 +43,10 @@ resource "aws_nat_gateway" "public_nat" {
   depends_on = [
     aws_internet_gateway.playground_gateway
   ]
+
+  tags {
+    Name = "public nat"
+  }
 }
 
 resource "aws_route_table" "public_private_table" {
@@ -43,6 +59,10 @@ resource "aws_route_table" "public_private_table" {
     nat_gateway_id = aws_nat_gateway.public_nat.id
   }
 
+  tags {
+    Name = "public private table"
+  }
+
 }
 
 resource "aws_route_table" "public_table" {
@@ -53,6 +73,10 @@ resource "aws_route_table" "public_table" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.playground_gateway.id
+  }
+
+  tags {
+    Name = "public table"
   }
 
 }
