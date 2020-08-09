@@ -42,4 +42,27 @@ resource "aws_route_table" "public_private_table" {
     cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.public_nat.id
   }
+
+}
+
+resource "aws_route_table" "public_table" {
+  vpc_id = aws_vpc.devops_playground.id
+
+  # default route for vpc cidr to local is implicitly created
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_internet_gateway.playground_gateway.id
+  }
+
+}
+
+resource "aws_route_table_association" "public_private_table" {
+  subnet_id = aws_subnet.private.id
+  route_table_id = aws_route_table.public_private_table.id
+}
+
+resource "aws_route_table_association" "public_table" {
+  subnet_id = aws_subnet.public.id
+  route_table_id = aws_route_table.public_table.id
 }
