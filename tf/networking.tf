@@ -51,7 +51,7 @@ resource "aws_route_table" "public_table" {
   # default route for vpc cidr to local is implicitly created
 
   route {
-    cidr_block     = "0.0.0.0/0"
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.playground_gateway.id
   }
 
