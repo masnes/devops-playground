@@ -4,9 +4,9 @@ variable "allowed_ips" {
   default     = ["73.78.216.54"]
 }
 
-resource "aws_security_group" "base" {
-  name        = "base"
-  description = "all access needs from provided public ips"
+resource "aws_security_group" "public_servers" {
+  name        = "public_servers"
+  description = "access to bastions and other public servers"
 
   vpc_id = aws_vpc.devops_playground.id
 
@@ -23,6 +23,15 @@ resource "aws_security_group" "base" {
     }
   }
 
+  ingress {
+    from_port = -1
+    to_port   = -1
+    protocol  = "tcp"
+    cidr_blocks = [
+      aws_subnet.private.cidr_block
+    ]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -31,8 +40,31 @@ resource "aws_security_group" "base" {
   }
 }
 
-resource "aws_security_group" "intraconnected" {
-  name        = "intraconnected"
+resource "aws_security_group" "private_servers" {
+  name = "private_servers"
+  description = "security group associated with servers in the private subnet"
+
+  vpc_id = aws_vpc.devops_playground.id
+
+  ingress {
+    from_port = -1
+    to_port   = -1
+    protocol  = "tcp"
+    cidr_blocks = [
+      aws_subnet.public.cidr_block
+    ]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "private_intraconnected" {
+  name        = "private_intraconnected"
   description = "allow things to talk to each other"
 
   vpc_id = aws_vpc.devops_playground.id
@@ -44,7 +76,7 @@ resource "aws_security_group" "intraconnected" {
       to_port   = ingress.value
       protocol  = "tcp"
       security_groups = [
-        aws_security_group.base.id
+        aws_security_group.private_servers.id
       ]
     }
   }

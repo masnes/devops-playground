@@ -5,8 +5,7 @@ resource "aws_instance" "bastion" {
 
   subnet_id = aws_subnet.public.id
   vpc_security_group_ids = [
-    aws_security_group.base.id,
-    aws_security_group.intraconnected.id
+    aws_security_group.public_servers.id,
   ]
 
 

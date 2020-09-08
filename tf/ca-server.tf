@@ -5,8 +5,8 @@ resource "aws_instance" "ca_server" {
 
   subnet_id = aws_subnet.private.id
   vpc_security_group_ids = [
-    aws_security_group.base.id,
-    aws_security_group.intraconnected.id
+    aws_security_group.private_servers.id,
+    aws_security_group.private_intraconnected.id
   ]
 
   root_block_device {
