@@ -41,7 +41,7 @@ resource "aws_security_group" "public_servers" {
 }
 
 resource "aws_security_group" "private_servers" {
-  name = "private_servers"
+  name        = "private_servers"
   description = "security group associated with servers in the private subnet"
 
   vpc_id = aws_vpc.devops_playground.id
