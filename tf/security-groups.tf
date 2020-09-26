@@ -28,7 +28,8 @@ resource "aws_security_group" "public_servers" {
     to_port   = 0
     protocol  = "tcp"
     cidr_blocks = [
-      aws_subnet.private.cidr_block
+      aws_subnet.private.cidr_block,
+      aws_subent.public.cidr_block,
     ]
   }
 
@@ -51,7 +52,8 @@ resource "aws_security_group" "private_servers" {
     to_port   = 0
     protocol  = "tcp"
     cidr_blocks = [
-      aws_subnet.public.cidr_block
+      aws_subnet.public.cidr_block,
+      aws_subnet.private.cidr_block,
     ]
   }
 
