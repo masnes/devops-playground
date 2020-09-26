@@ -29,7 +29,7 @@ resource "aws_security_group" "public_servers" {
     protocol  = "tcp"
     cidr_blocks = [
       aws_subnet.private.cidr_block,
-      aws_subent.public.cidr_block,
+      aws_subnet.public.cidr_block
     ]
   }
 
