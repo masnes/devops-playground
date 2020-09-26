@@ -23,7 +23,7 @@ resource "aws_route53_record" "bastion" {
   name    = "bastion.devops-playground.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.bastion_ip.private_ip]
+  records = [aws_instance.bastion.private_ip]
 }
 
 output "bastion" {

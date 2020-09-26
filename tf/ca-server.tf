@@ -23,7 +23,7 @@ resource "aws_route53_record" "ca_server" {
   name    = "ca-server.devops-playground.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.ca_ip.private_ip]
+  records = [aws_instance.ca_server.private_ip]
 }
 
 output "ca_server" {

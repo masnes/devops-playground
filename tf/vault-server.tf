@@ -31,7 +31,7 @@ resource "aws_route53_record" "vault_server" {
   name    = "vault-server.devops-playground.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.vault_ip.private_ip]
+  records = [aws_instance.vault_server.private_ip]
 }
 
 output "vault_server" {

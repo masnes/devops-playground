@@ -31,7 +31,7 @@ resource "aws_route53_record" "log_server" {
   name    = "log-server.devops-playground.com"
   type    = "A"
   ttl     = 300
-  records = [aws_eip.log_server_ip.private_ip]
+  records = [aws_instance.log_server.private_ip]
 }
 
 output "log_server" {
