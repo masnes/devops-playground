@@ -35,6 +35,25 @@ resource "aws_security_group" "public_servers" {
     ]
   }
 
+  # internal access
+  ingress {
+    from_port = 0
+    to_port   = 65535
+    protocol  = "udp"
+    cidr_blocks = [
+      aws_subnet.private.cidr_block,
+    ]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 254
+    protocol  = "icmp"
+    cidr_blocks = [
+      aws_subnet.private.cidr_block,
+    ]
+  }
+
 
   egress {
     from_port   = 0
@@ -59,6 +78,15 @@ resource "aws_security_group" "private_servers" {
     ]
   }
 
+  ingress {
+    from_port = 0
+    to_port   = 65535
+    protocol  = "udp"
+    cidr_blocks = [
+      aws_subnet.public.cidr_block,
+    ]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -77,6 +105,26 @@ resource "aws_security_group" "private_intraconnected" {
     from_port = 0
     to_port   = 65535
     protocol  = "tcp"
+    cidr_blocks = [
+      aws_subnet.public.cidr_block,
+      aws_subnet.private.cidr_block,
+    ]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 65535
+    protocol  = "udp"
+    cidr_blocks = [
+      aws_subnet.public.cidr_block,
+      aws_subnet.private.cidr_block,
+    ]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 254
+    protocol  = "icmp"
     cidr_blocks = [
       aws_subnet.public.cidr_block,
       aws_subnet.private.cidr_block,
