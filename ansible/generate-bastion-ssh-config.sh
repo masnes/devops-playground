@@ -9,11 +9,11 @@ cat > "$script_dir/ssh_config" <<EOF
 
 # Bastion IP: ${bastion_ip}
 
-HOST 172.16.*:
-  ProxyCommand ssh -W %h:%p ${bastion_ip}
+HOST 172.16.*
+  ProxyCommand ssh -W %h:%p ec2-user@${bastion_ip}
   IdentityFile ~/.ssh/id_rsa
 
-HOST ${bastion_ip}:
+HOST ${bastion_ip}
   User ec2-user
   IdentityFile ~/.ssh/id_rsa
   ControlMaster auto

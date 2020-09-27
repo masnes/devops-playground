@@ -16,4 +16,5 @@ if [[ $# -ne 2 ]]; then
 fi
 target_server="$(TF_STATE="$script_dir/tf/" ./ansible/terraform-inventory --list | jq ".$2[0]" | tr -d '"')"
 set -x
-ssh "$1"@"$target_server"
+( "$script_dir"/ansible/generate-bastion-ssh-config.sh )
+ssh "$1"@"$target_server" -F "$script_dir/ansible/ssh_config"
