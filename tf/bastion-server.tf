@@ -20,7 +20,7 @@ resource "aws_eip" "bastion_ip" {
 
 resource "aws_route53_record" "bastion" {
   zone_id = aws_route53_zone.private.zone_id
-  name    = "bastion.devops-playground.io"
+  name    = "bastion"
   type    = "A"
   ttl     = 300
   records = [aws_instance.bastion.private_ip]

@@ -18,7 +18,7 @@ resource "aws_instance" "vault_server" {
 
 resource "aws_route53_record" "vault_server" {
   zone_id = aws_route53_zone.private.zone_id
-  name    = "vault-server.devops-playground.io"
+  name    = "vault-server"
   type    = "A"
   ttl     = 300
   records = [aws_instance.vault_server.private_ip]

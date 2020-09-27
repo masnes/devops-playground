@@ -16,7 +16,7 @@ resource "aws_instance" "ca_server" {
 
 resource "aws_route53_record" "ca_server" {
   zone_id = aws_route53_zone.private.zone_id
-  name    = "ca-server.devops-playground.io"
+  name    = "ca-server"
   type    = "A"
   ttl     = 300
   records = [aws_instance.ca_server.private_ip]
