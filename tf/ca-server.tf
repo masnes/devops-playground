@@ -14,10 +14,6 @@ resource "aws_instance" "ca_server" {
   }
 }
 
-resource "aws_eip" "ca_ip" {
-  instance = aws_instance.ca_server.id
-}
-
 resource "aws_route53_record" "ca_server" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "ca-server.devops-playground.com"
@@ -27,5 +23,5 @@ resource "aws_route53_record" "ca_server" {
 }
 
 output "ca_server" {
-  value = aws_instance.ca_server.public_dns
+  value = aws_route53_record.ca_server.name
 }

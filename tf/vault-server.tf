@@ -4,6 +4,7 @@ resource "aws_instance" "vault_server" {
   key_name      = aws_key_pair.t480_laptop.key_name
 
   subnet_id = aws_subnet.private.id
+
   vpc_security_group_ids = [
     aws_security_group.private_servers.id,
     aws_security_group.private_intraconnected.id
@@ -13,17 +14,6 @@ resource "aws_instance" "vault_server" {
     encrypted = true
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    host        = self.public_ip
-    private_key = file("/home/masnes/.ssh/id_rsa")
-  }
-
-}
-
-resource "aws_eip" "vault_ip" {
-  instance = aws_instance.vault_server.id
 }
 
 resource "aws_route53_record" "vault_server" {
@@ -35,5 +25,5 @@ resource "aws_route53_record" "vault_server" {
 }
 
 output "vault_server" {
-  value = aws_instance.vault_server.public_dns
+  value = aws_route53_record.vault_server.name
 }
