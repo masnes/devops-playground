@@ -10,11 +10,13 @@ resource "aws_security_group" "public_servers" {
 
   vpc_id = aws_vpc.devops_playground.id
 
+  # external access
   dynamic "ingress" {
     for_each = [22, 8000, 8089]
+    iterator = port
     content {
-      from_port = ingress.value
-      to_port   = ingress.value
+      from_port = port.value
+      to_port   = port.value
       protocol  = "tcp"
       cidr_blocks = [
         for ip in var.allowed_ips :
@@ -23,14 +25,13 @@ resource "aws_security_group" "public_servers" {
     }
   }
 
+  # internal access
   ingress {
     from_port = 0
     to_port   = 65535
     protocol  = "tcp"
     cidr_blocks = [
       aws_subnet.private.cidr_block,
-      aws_subnet.public.cidr_block,
-      "0.0.0.0/0"
     ]
   }
 
@@ -55,8 +56,6 @@ resource "aws_security_group" "private_servers" {
     protocol  = "tcp"
     cidr_blocks = [
       aws_subnet.public.cidr_block,
-      aws_subnet.private.cidr_block,
-      "0.0.0.0/0"
     ]
   }
 
@@ -74,15 +73,13 @@ resource "aws_security_group" "private_intraconnected" {
 
   vpc_id = aws_vpc.devops_playground.id
 
-  dynamic "ingress" {
-    for_each = [443]
-    content {
-      from_port = ingress.value
-      to_port   = ingress.value
-      protocol  = "tcp"
-      security_groups = [
-        aws_security_group.private_servers.id
-      ]
-    }
+  ingress {
+    from_port = 0
+    to_port   = 65535
+    protocol  = "tcp"
+    cidr_blocks = [
+      aws_subnet.public.cidr_block,
+      aws_subnet.private.cidr_block,
+    ]
   }
 }
