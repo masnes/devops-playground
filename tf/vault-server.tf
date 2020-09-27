@@ -25,5 +25,5 @@ resource "aws_route53_record" "vault_server" {
 }
 
 output "vault_server" {
-  value = aws_route53_record.vault_server.name
+  value = aws_instance.vault_server.private_ip
 }

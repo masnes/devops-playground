@@ -23,5 +23,5 @@ resource "aws_route53_record" "ca_server" {
 }
 
 output "ca_server" {
-  value = aws_route53_record.ca_server.name
+  value = aws_instance.ca_server.private_ip
 }

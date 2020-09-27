@@ -27,5 +27,5 @@ resource "aws_route53_record" "bastion" {
 }
 
 output "bastion" {
-  value = aws_instance.bastion.public_dns
+  value = aws_eip.bastion_ip.public_ip
 }

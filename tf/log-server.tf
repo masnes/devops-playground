@@ -25,5 +25,5 @@ resource "aws_route53_record" "log_server" {
 }
 
 output "log_server" {
-  value = aws_route53_record.log_server.name
+  value = aws_instance.log_server.private_ip
 }
