@@ -14,4 +14,5 @@ run_playbook() {
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@" --syntax-check
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@"
 }
+( "$script_dir"/generate-bastion-ssh-config.sh )
 run_playbook "$@"
