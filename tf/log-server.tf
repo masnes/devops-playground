@@ -18,7 +18,7 @@ resource "aws_instance" "log_server" {
 
 resource "aws_route53_record" "log_server" {
   zone_id = aws_route53_zone.private.zone_id
-  name    = "log-server.devops-playground.com"
+  name    = "log-server.devops-playground.io"
   type    = "A"
   ttl     = 300
   records = [aws_instance.log_server.private_ip]
