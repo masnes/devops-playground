@@ -24,8 +24,8 @@ resource "aws_security_group" "public_servers" {
   }
 
   ingress {
-    from_port = -1
-    to_port   = -1
+    from_port = 0
+    to_port   = 65535
     protocol  = "tcp"
     cidr_blocks = [
       aws_subnet.private.cidr_block,
@@ -36,7 +36,7 @@ resource "aws_security_group" "public_servers" {
 
   egress {
     from_port   = 0
-    to_port     = 0
+    to_port     = 65535
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -50,7 +50,7 @@ resource "aws_security_group" "private_servers" {
 
   ingress {
     from_port = 0
-    to_port   = 0
+    to_port   = 65535
     protocol  = "tcp"
     cidr_blocks = [
       aws_subnet.public.cidr_block,
@@ -61,7 +61,7 @@ resource "aws_security_group" "private_servers" {
 
   egress {
     from_port   = 0
-    to_port     = 0
+    to_port     = 65535
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
