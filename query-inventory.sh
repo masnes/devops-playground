@@ -13,9 +13,9 @@ Examples:
 EOF
 }
 if [[ $# -eq 0 ]]; then
-  TF_STATE="$script_dir/tf/" ./ansible/terraform-inventory --list | jq "."
+  TF_STATE="$script_dir/tf/" "$script_dir"/ansible/terraform-inventory --list | jq "."
 elif [[ $# -eq 1 ]]; then
-  TF_STATE="$script_dir/tf/" ./ansible/terraform-inventory --list | jq ".$1[0]" | tr -d '"'
+  TF_STATE="$script_dir/tf/" "$script_dir"/ansible/terraform-inventory --list | jq ".$1[0]" | tr -d '"'
 else
   usage
   exit 1
