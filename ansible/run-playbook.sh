@@ -11,11 +11,8 @@ fi
 
 export TF_STATE="$script_dir/../tf/"
 run_playbook() {
-  (
-  set -o StrictHostKeyChecking=no
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@" --syntax-check
   ansible-playbook --inventory-file="$script_dir"/terraform-inventory "$@"
-  )
 }
 ( "$script_dir"/generate-bastion-ssh-config.sh )
 run_playbook "$@"

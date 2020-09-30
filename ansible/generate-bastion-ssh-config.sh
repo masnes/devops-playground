@@ -9,6 +9,8 @@ cat > "$script_dir/ssh_config" <<EOF
 
 # Bastion IP: ${bastion_ip}
 
+StrictHostKeyChecking=no
+
 HOST 172.16.*
   ProxyCommand ssh -W %h:%p ec2-user@${bastion_ip}
   IdentityFile ~/.ssh/id_rsa
