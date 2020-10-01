@@ -5,7 +5,7 @@
 #}
 
 resource "aws_route53_zone" "private" {
-  name = "dp.io"
+  name = "devops-playground.io"
 
   vpc {
     vpc_id = aws_vpc.devops_playground.id
