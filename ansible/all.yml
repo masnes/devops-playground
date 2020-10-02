@@ -7,6 +7,6 @@
 - hosts: ca_server
   roles:
     - step-determine-fingerprint
-- hosts: all
+- hosts: all:!public_nat
   roles:
     - step-bootstrap-client
