@@ -49,6 +49,8 @@ resource "aws_iam_role_policy" "vault_dynamodb" {
       "Effect": "Allow",
       "Resource": [ "${aws_dynamodb_table.vault.arn}" ]
     }
+  ]
+}
 EOF
 }
 
