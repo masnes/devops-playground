@@ -55,20 +55,20 @@ resource "aws_iam_instance_profile" "vault_dynamodb" {
   role = aws_iam_role.vault_dynamodb.name
 }
 resource "aws_dynamodb_table" "vault" {
-  name = "vault"
+  name         = "vault"
   billing_mode = "PAY_PER_REQUEST"
 
-  hash_key = "Path"
+  hash_key  = "Path"
   range_key = "Key"
 
   attribute {
-      name = "Path"
-      type = "S"
+    name = "Path"
+    type = "S"
   }
 
   attribute {
-      name = "Key"
-      type = "S"
+    name = "Key"
+    type = "S"
   }
 
   tags = {
