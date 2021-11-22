@@ -1,6 +1,6 @@
 variable "authorized_key_path" {
   type    = string
-  default = "~/.ssh/id_rsa"
+  default = "~/.ssh/id_rsa.pub"
 }
 
 data "local_file" "provided_public_key" {
