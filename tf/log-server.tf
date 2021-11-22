@@ -1,7 +1,7 @@
 resource "aws_instance" "log_server" {
   ami           = "ami-087c2c50437d0b80d" # RHEL 8 x86
   instance_type = "t3a.micro"
-  key_name      = aws_key_pair.t480_laptop.key_name
+  key_name      = aws_key_pair.user_provided_key
 
   subnet_id = aws_subnet.private.id
 
