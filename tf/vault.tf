@@ -83,7 +83,7 @@ resource "aws_dynamodb_table" "vault" {
 resource "aws_instance" "vault_server" {
   ami           = "ami-087c2c50437d0b80d" # RHEL 8 x86
   instance_type = "t3a.nano"
-  key_name      = aws_key_pair.user_provided_key
+  key_name      = aws_key_pair.user_provided_key.key_name
 
   iam_instance_profile = aws_iam_instance_profile.vault_dynamodb.name
 
